@@ -1,0 +1,187 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+  Design tokens — palette « fruits & légumes »
+  Vert feuille, orange agrume, jaune doux, rouge fruité sur fond crème.
+  Couleurs en OKLCH pour des dégradés et survols harmonieux.
+*/
+:root {
+  --radius: 0.85rem;
+
+  /* Surfaces */
+  --background: oklch(0.99 0.008 95);
+  --foreground: oklch(0.27 0.03 150);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.27 0.03 150);
+
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.27 0.03 150);
+
+  /* Vert feuille — couleur de marque */
+  --primary: oklch(0.58 0.13 148);
+  --primary-foreground: oklch(0.99 0.01 95);
+
+  /* Orange agrume — accent chaleureux */
+  --secondary: oklch(0.94 0.05 80);
+  --secondary-foreground: oklch(0.35 0.06 60);
+
+  --muted: oklch(0.96 0.012 100);
+  --muted-foreground: oklch(0.5 0.03 140);
+
+  --accent: oklch(0.74 0.16 55);
+  --accent-foreground: oklch(0.99 0.01 95);
+
+  --destructive: oklch(0.58 0.2 25);
+  --destructive-foreground: oklch(0.99 0.01 95);
+
+  --border: oklch(0.91 0.015 120);
+  --input: oklch(0.91 0.015 120);
+  --ring: oklch(0.58 0.13 148);
+
+  /* Teintes fruitées utilitaires */
+  --fruit-green: oklch(0.62 0.15 145);
+  --fruit-orange: oklch(0.74 0.16 55);
+  --fruit-yellow: oklch(0.86 0.14 95);
+  --fruit-red: oklch(0.6 0.19 25);
+  --fruit-berry: oklch(0.48 0.12 320);
+}
+
+.dark {
+  --background: oklch(0.2 0.02 150);
+  --foreground: oklch(0.96 0.01 95);
+
+  --card: oklch(0.24 0.02 150);
+  --card-foreground: oklch(0.96 0.01 95);
+
+  --popover: oklch(0.24 0.02 150);
+  --popover-foreground: oklch(0.96 0.01 95);
+
+  --primary: oklch(0.68 0.14 148);
+  --primary-foreground: oklch(0.2 0.02 150);
+
+  --secondary: oklch(0.3 0.04 80);
+  --secondary-foreground: oklch(0.95 0.02 90);
+
+  --muted: oklch(0.28 0.02 150);
+  --muted-foreground: oklch(0.7 0.02 130);
+
+  --accent: oklch(0.74 0.16 55);
+  --accent-foreground: oklch(0.2 0.02 150);
+
+  --destructive: oklch(0.62 0.2 25);
+  --destructive-foreground: oklch(0.96 0.01 95);
+
+  --border: oklch(0.32 0.02 150);
+  --input: oklch(0.32 0.02 150);
+  --ring: oklch(0.68 0.14 148);
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-fruit-green: var(--fruit-green);
+  --color-fruit-orange: var(--fruit-orange);
+  --color-fruit-yellow: var(--fruit-yellow);
+  --color-fruit-red: var(--fruit-red);
+  --color-fruit-berry: var(--fruit-berry);
+
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-poppins);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: oklch(0.62 0.15 145 / 0.22);
+  }
+
+  /* Respect des préférences de mouvement réduit */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Dégradé de marque réutilisable */
+.bg-brand-gradient {
+  background-image: linear-gradient(
+    135deg,
+    var(--fruit-green) 0%,
+    var(--fruit-orange) 100%
+  );
+}
+
+.text-brand-gradient {
+  background-image: linear-gradient(
+    120deg,
+    var(--fruit-green) 0%,
+    var(--fruit-orange) 55%,
+    var(--fruit-red) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Halo doux pour la section héro */
+.hero-glow {
+  background: radial-gradient(
+      60% 50% at 50% 35%,
+      oklch(0.86 0.14 95 / 0.35) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      40% 40% at 70% 60%,
+      oklch(0.74 0.16 55 / 0.25) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      45% 45% at 25% 70%,
+      oklch(0.62 0.15 145 / 0.22) 0%,
+      transparent 70%
+    );
+}
